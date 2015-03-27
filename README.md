@@ -7,7 +7,7 @@ SETUP
 2. Download Elasticsearch from https://www.elastic.co/downloads and run "./elasticsearch" from elasticsearch-1.4.4/bin/;
 3. Download and install node.js and npm from http://nodejs.org/download/
 4. From the root folder, install the request and readline modules using "npm install elasticsearch" and "npm install line-by-line";
-5. Run the code with "node app.js [search.txt]" command, where [search.txt] is the input file containing the input.
+5. Run the code with "node {app.js | app_stream.js} [search.txt]" command, where [search.txt] is the input file containing the input.
 6. Once the process has completed, open any browser and search through the indexed data. For example, to search through all the tracks: 		http://localhost:9200/music/track/_search.
 
 STRUCTURE
