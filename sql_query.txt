@@ -1,1 +1,1 @@
-select * from music_song INTO OUTFILE '/tmp/output.txt' FIELDS TERMINATED BY '///' ENCLOSED BY '"' LINES TERMINATED BY '\n';
+select * from music_song limit 500 INTO OUTFILE '/tmp/output.txt' FIELDS TERMINATED BY '///' ENCLOSED BY '"' LINES TERMINATED BY '\n';

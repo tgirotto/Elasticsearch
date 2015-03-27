@@ -22,10 +22,14 @@ initialize(function() {
     processObject(counter, extractObject(line));
   });
 
-  rl.on('close', function() {
-    console.log('\nRefreshed index;');
+  rl.on('end', function() {
     rl.close();
+    client.indices.refresh({index:INDEX}, function(err, response, status) {
+      if(err == null)
+        console.log('\nRefreshed index;\nDone.');
 
+      process.exit();
+    })
   });
 });
 
