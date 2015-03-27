@@ -102,4 +102,4 @@ For example, in order to look for all the documents which contain the token 'goo
     
 or through CURL:
 
-	curl -X POST  http://localhost'9200/music/track/_search -d '{"query": {"query_string": {"query": "good"}}}'
+	curl -X POST  http://localhost:9200/music/track/_search -d '{"query": {"query_string": {"query": "good"}}}'
