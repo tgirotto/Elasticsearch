@@ -6,27 +6,26 @@ var MAX = 1000;
 
 var fs = require('fs');
 var elastic = require('elasticsearch');
-var readline = require('readline');
+var readline = require('line-by-line');
 
 var rl = null;
 var client = null;
 
-var throttle = 0;
 var counter = 0;
 
 initialize(function() {
-  var readStream =  fs.createReadStream(process.argv[2]);
-  rl = readline.createInterface({input: readStream, terminal: false});
+  rl =  new readline(process.argv[2]);
 
   rl.on('line', function(line) {
+    counter++;
     rl.pause();
-    check(line, extractObject(line));
+    processObject(counter, extractObject(line));
   });
 
   rl.on('close', function() {
     console.log('\nRefreshed index;');
-    //refresh index;
     rl.close();
+
   });
 });
 
@@ -90,17 +89,6 @@ function extractObject(line) {
   return object;
 };
 
-function check(line, obj) {
-  if(throttle < MAX) {
-    throttle++;
-    processObject(counter++, obj);
-  } else {
-    setTimeout(function() {
-      check(line, obj);
-    }, 1000);
-  }
-};
-
 function processObject(number, input) {
 	client.index({
 			index: INDEX,
@@ -108,7 +96,6 @@ function processObject(number, input) {
 			id: number,
 			body: input
 		}, function (error, response) {
-      throttle--;
       if(counter % 1000 == 0) 
         process.stdout.write(".");
       rl.resume();
